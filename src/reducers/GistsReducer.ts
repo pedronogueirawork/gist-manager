@@ -40,5 +40,5 @@ export const useGistItem = async (id: string): Promise<Gist> => {
 }
 
 export const filterGistsByName = (list: Gist[], search: string) => {
-    return list.filter(item => item.file.description.includes(search));
+    return list.filter(item => item.file.description.toLocaleLowerCase().includes(search.toLocaleLowerCase()));
 }
