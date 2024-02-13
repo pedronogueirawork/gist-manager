@@ -19,7 +19,7 @@ export const useGistsList = async () => {
     })
 }
 
-export const useGistItem = async (id: string): Gist => {
+export const useGistItem = async (id: string): Promise<Gist> => {
     const gist = await getGist(id);
     
     const gistContent = await fetch(gist.data.files[Object.keys(gist.data.files)[0]].raw_url)
@@ -37,5 +37,8 @@ export const useGistItem = async (id: string): Gist => {
         createdAt: moment(gist.data.created_at).format('DD/MM/YYYY'),
         updatedAt: moment(gist.data.updated_at).format('DD/MM/YYYY'),
     }
+}
 
+export const filterGistsByName = (list: Gist[], search: string) => {
+    return list.filter(item => item.file.description.includes(search));
 }
