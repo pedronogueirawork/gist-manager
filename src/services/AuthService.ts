@@ -11,3 +11,7 @@ export const getAuthToken = () => {
 export const logout = () => {
     return localStorage.removeItem(Authentication.AUTH_STORAGE_NAME);
 }
+
+export const isLogged = () => {
+    return localStorage.getItem(Authentication.AUTH_STORAGE_NAME) !== null
+}

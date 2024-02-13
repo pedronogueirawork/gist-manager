@@ -4,6 +4,13 @@ import GistsView from '@/views/GistsView.vue'
 import GistCreateView from '../views/GistCreateView.vue'
 import GistEditView from '../views/GistEditView.vue'
 import { RouteNames } from '@/enums'
+import { isLogged } from '@/services'
+
+const verifyAuth = () => {
+  if (!isLogged()) {
+    window.location.pathname = '/';
+  }
+}
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,17 +23,26 @@ const router = createRouter({
     {
       path: '/gists',
       name: RouteNames.GISTS,
-      component: GistsView
+      component: GistsView,
+      beforeEnter: () => { 
+        verifyAuth()
+      }
     },
     {
       path: '/gist/create',
       name: RouteNames.CREATE,
-      component: GistCreateView
+      component: GistCreateView,
+      beforeEnter: () => { 
+        verifyAuth()
+      }
     },
     {
       path: '/gist/:id/edit',
       name: RouteNames.EDIT,
-      component: GistEditView
+      component: GistEditView,
+      beforeEnter: () => { 
+        verifyAuth()
+      }
     },
   ]
 })
